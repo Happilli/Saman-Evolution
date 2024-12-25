@@ -56,7 +56,7 @@ const Footer: React.FC = () => {
                 <NavLink
                   to="/about"
                   className={({ isActive }) =>
-                    isActive ? "text-yellow-500" : "hover:text-gray-400"
+                    isActive ? "text-purpletheme" : "hover:text-gray-400"
                   }
                 >
                   About
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
                 <NavLink
                   to="/contact"
                   className={({ isActive }) =>
-                    isActive ? "text-yellow-500" : "hover:text-gray-400"
+                    isActive ? "text-purpletheme" : "hover:text-gray-400"
                   }
                 >
                   Contact
@@ -74,12 +74,12 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <NavLink
-                  to="/terms"
+                  to="/policy"
                   className={({ isActive }) =>
-                    isActive ? "text-yellow-500" : "hover:text-gray-400"
+                    isActive ? "text-purpletheme" : "hover:text-gray-400"
                   }
                 >
-                  Terms & Conditions
+                  Privacy & Policy
                 </NavLink>
               </li>
             </ul>

@@ -13,8 +13,7 @@ const Header: React.FC = () => {
     { to: "/", label: "Home" },
     { to: "/shop", label: "Shop" },
     { to: "/cart", label: "Cart" },
-    { to: "/about", label: "About Us" },
-    { to: "/contact", label: "Contact" },
+    { to: "/category", label: "Category" },
   ];
 
   return (
@@ -24,7 +23,7 @@ const Header: React.FC = () => {
           <img
             src="/assets/SAMAN.png"
             alt="Saman Logo"
-            className="h-10 w-auto sm:h-12"
+            className="h-16 w-auto sm:h-20" 
           />
         </div>
       </div>

@@ -42,10 +42,8 @@ const HomePage: React.FC = () => {
               <img
                 src={image}
                 alt={`Slide ${index + 1}`}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                className="w-full h-full object-cover transform transition-transform duration-500 ease-in-out"
               />
-              <div className="absolute top-0 left-0 w-full h-full bg-black/40"></div>
-
               <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2">
                 <button className=" w-[200px] h-[50px] bg-white text-black border-2 border-black font-bold text-xl rounded-md shadow-lg hover:bg-gray-200 transition duration-300">
                   Shop Now
@@ -54,15 +52,6 @@ const HomePage: React.FC = () => {
                 <div className="bg-white text-black font-medium text-lg px-6 py-2 border-2 border-black text-center">
                   Find the Best Deals and Explore a Wide Range of Products!
                 </div>
-              </div>
-
-              <div className="absolute bottom-6 right-4 flex items-center space-x-2">
-                <a
-                  href="#shop"
-                  className="text-2xl font-bold text-white px-4 py-2 border-none hover:text-purpletheme transition duration-300"
-                >
-                  Browse Categories
-                </a>
               </div>
             </div>
           ))}
