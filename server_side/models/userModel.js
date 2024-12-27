@@ -26,14 +26,26 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: Number,
-      default: 0,
+      default: 0, 
     },
     pfp: {
       data: { type: Buffer, default: null },
       contentType: { type: String, default: null },
     },
+    isVerified: {
+      type: Boolean,
+      default: false, 
+    },
+    otp: {
+      type: String,
+      default: null, 
+    },
+    otpExpiresAt: {
+      type: Date,
+      default: null, 
+    },
   },
   { timestamps: true }
 );
 
-export default mongoose.model("users", userSchema);
+export default mongoose.model("User", userSchema);
