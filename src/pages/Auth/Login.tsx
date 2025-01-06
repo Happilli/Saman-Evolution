@@ -1,88 +1,131 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { FaUserAlt, FaLock, FaSignInAlt } from "react-icons/fa"; // Importing React Icons
+import React, { useState } from "react";
+import { FaEnvelope, FaLock } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
+import { loginUser } from "../../utils/api";
+import axios from "axios";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await loginUser(formData);
+
+      if (response.data.success) {
+       // sessionStorage.setItem("email", formData.email); // while registering alredy stored tho we can add it to be double sure
+        navigate("/otp"); 
+      } else {
+        setMessage(response.data.message);
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response?.data?.message) {
+        setMessage(error.response.data.message);
+      } else {
+        setMessage("Something went wrong!");
+      }
+    }
+  };
+
   return (
     <Layout
       title="Login - Saman"
-      description="Log in to access your account on Saman."
+      description="Login to your account to start using Saman."
       author="Safal Lama"
       keywords="login, Saman"
       viewport="width=device-width, initial-scale=1.0"
     >
-      <main className="min-h-screen flex bg-white text-black">
-        {/* Left Side Section (Form) */}
-        <div className="w-full sm:w-1/2 p-10 sm:p-14 flex flex-col justify-center items-center">
-          <form className="w-full max-w-md space-y-8 bg-white p-8 rounded-xl shadow-lg border border-gray-300 transition duration-300 ease-in-out hover:shadow-2xl hover:border-gray-400">
-            {/* Email Field with Icon as Placeholder */}
-            <div className="relative">
-              <label
-                htmlFor="email"
-                className="block text-2xl text-gray-800 mb-4 text-left font-semibold"
-              >
-                Email
-              </label>
-              <div className="flex items-center border-2 border-gray-300 rounded-lg shadow-sm hover:shadow-md transition duration-200 ease-in-out">
-                {/* Icon as Placeholder */}
-                <FaUserAlt className="absolute left-4 text-gray-400 text-2xl" />
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full p-4 pl-14 text-xl text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your email"
-                />
-              </div>
-            </div>
+      <main className="min-h-screen flex justify-center items-center bg-gray-50">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-md bg-white p-8 rounded-lg shadow-xl border border-gray-200"
+        >
+          <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
+            Login to Your Account
+          </h2>
 
-            {/* Password Field with Icon as Placeholder */}
-            <div className="relative">
-              <label
-                htmlFor="password"
-                className="block text-2xl text-gray-800 mb-4 text-left font-semibold"
-              >
-                Password
-              </label>
-              <div className="flex items-center border-2 border-gray-300 rounded-lg shadow-sm hover:shadow-md transition duration-200 ease-in-out">
-                {/* Icon as Placeholder */}
-                <FaLock className="absolute left-4 text-gray-400 text-2xl" />
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full p-4 pl-14 text-xl text-gray-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your password"
-                />
-              </div>
-            </div>
+          <div className="text-center text-sm text-yellow-600 mb-6">
+            <p>
+              {" "}
+              <NavLink to="/otp" className="text-blue-500 hover:text-blue-700">
+                Verify your account
+              </NavLink>
+            </p>
+          </div>
 
-            <button
-              type="submit"
-              className="w-full bg-black text-white px-8 py-4 rounded-full text-2xl font-semibold flex items-center justify-center hover:bg-gray-800 transition duration-200 ease-in-out"
+          <div className="mb-4">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-2"
             >
-              <FaSignInAlt className="inline mr-3 text-2xl" /> Login
-            </button>
-          </form>
+              Email
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full p-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+            </div>
+          </div>
 
-          <div className="mt-6 text-xl text-gray-600 text-center">
+          <div className="mb-4">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="w-full p-4 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-black text-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 focus:ring-4 focus:ring-blue-500 transition duration-300 ease-in-out"
+          >
+            Login
+          </button>
+          {message && (
+            <p className="mt-4 text-center text-red-500">{message}</p>
+          )}
+
+          <div className="mt-4 text-sm text-gray-600 text-center">
             Don't have an account?{" "}
             <NavLink
               to="/register"
-              className="text-blue-500 hover:text-blue-700 text-xl"
+              className="text-blue-500 hover:text-blue-700"
             >
               Register here
             </NavLink>
           </div>
-        </div>
-
-        {/* Right Side Section (Greeting with Black Background and Centered Text) */}
-        <div className="w-1/2 p-14 flex flex-col justify-center items-center bg-black text-white">
-          <h1 className="text-5xl sm:text-6xl font-extrabold text-center text-white">
-            Login Portal
-          </h1>
-        </div>
+        </form>
       </main>
     </Layout>
   );

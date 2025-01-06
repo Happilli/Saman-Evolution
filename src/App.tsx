@@ -6,6 +6,7 @@ import Contact from "./pages/Contact";
 import Pagenotfound from "./pages/PagenotFound";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import Otp from "./pages/Auth/Otp";
 
 const NoMatch = () => {
   return <Pagenotfound />;
@@ -24,6 +25,7 @@ function App() {
 //auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/otp" element={<Otp />} /> 
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </>
