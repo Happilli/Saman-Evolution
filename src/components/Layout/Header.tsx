@@ -23,7 +23,7 @@ const Header: React.FC = () => {
           <img
             src="/assets/SAMAN.png"
             alt="Saman Logo"
-            className="h-14 w-auto sm:h-12" 
+            className="h-14 w-auto sm:h-12"
           />
         </div>
       </div>
@@ -74,12 +74,15 @@ const Header: React.FC = () => {
         </div>
       </nav>
 
+      {/* Mobile Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-1/2 h-full bg-black text-white transition-transform transform ${
+        className={`fixed top-0 left-0 w-[50%] h-full bg-black text-white transition-transform transform ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } md:hidden z-50`}
+        } md:hidden z-50 rounded-r-lg`} 
       >
-        <div className="flex flex-col items-center py-10 mt-8">
+        <div className="flex flex-col items-start py-10 mt-8 pl-6">
+          {" "}
+          {/* Align content to the left */}
           <button
             onClick={toggleMobileMenu}
             className="absolute top-4 left-4 text-white text-3xl"
@@ -101,6 +104,7 @@ const Header: React.FC = () => {
           ))}
         </div>
 
+        {/* GitHub link at the bottom */}
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-50">
           <a
             href="https://github.com/RyuZinOh"

@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from "react";
 import Layout from "../components/Layout/Layout";
+import { Parallax } from "react-parallax";
 
 const HomePage: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -47,7 +48,29 @@ const HomePage: React.FC = () => {
       keywords="E-commerce, Shopping, Saman"
       viewport="width=device-width, initial-scale=1.0"
     >
-      <div className="relative w-full h-[720px] md:h-[1080px] overflow-hidden z-0">
+      <div className="relative w-full h-[720px] md:h-[1080px] overflow-hidden">
+        {/* Parallax scrolling effect for carousel */}
+        <div className="relative w-full h-full">
+          <Parallax
+            bgImage={images[currentSlide]}
+            strength={300} 
+            className="w-full h-[720px] md:h-[1080px] bg-cover bg-center"
+            style={{ transform: `translate3d(0, ${currentSlide * 10}px, 0)` }}
+          >
+            {/* Parallax content overlay */}
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2">
+              <button className="w-[150px] h-[40px] md:w-[200px] md:h-[50px] bg-white text-black border-2 border-black font-bold text-lg md:text-xl rounded-md shadow-lg hover:bg-gray-200 transition duration-300">
+                Shop Now
+              </button>
+              <div className="bg-white text-black font-medium text-sm md:text-lg px-4 md:px-6 py-2 border-2 border-black text-center">
+                Find the Best Deals and Explore a Wide Range of Products!
+              </div>
+            </div>
+          </Parallax>
+        </div>
+
+        {/* Carousel transition effect */}
         <div
           className="flex transition-transform duration-500 ease-in-out"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -64,14 +87,6 @@ const HomePage: React.FC = () => {
                   backgroundPosition: "left center",
                 }}
               />
-              <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2">
-                <button className="w-[150px] h-[40px] md:w-[200px] md:h-[50px] bg-white text-black border-2 border-black font-bold text-lg md:text-xl rounded-md shadow-lg hover:bg-gray-200 transition duration-300">
-                  Shop Now
-                </button>
-                <div className="bg-white text-black font-medium text-sm md:text-lg px-4 md:px-6 py-2 border-2 border-black text-center">
-                  Find the Best Deals and Explore a Wide Range of Products!
-                </div>
-              </div>
             </div>
           ))}
         </div>
